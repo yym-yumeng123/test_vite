@@ -1,16 +1,16 @@
 <template>
   <div class="desktop">
-    <img src="background.jpg" class="background-image" alt="Desktop Background">
+    <img :src="desk" class="background-image" alt="Desktop Background">
     <div class="app-icons">
-      <div class="app-icon">App 1</div>
-      <div class="app-icon">App 2</div>
-      <div class="app-icon">App 3</div>
-      <!-- Add more app icons as needed -->
+      <AppIcon v-for="item in AppIcons" :key="item.name" :src="item.src" :title="item.name" />
     </div>
   </div>
 </template>
 
 <script setup>
+import AppIcon from './AppIcon.vue'
+import { AppIcons } from '@/config.js'
+import desk from '@assets/images/desk.jpg'
 </script>
 
 <style scoped>
@@ -24,6 +24,8 @@
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   z-index: -1;
@@ -31,20 +33,13 @@
 
 .app-icons {
   position: absolute;
-  top: 50px;
-  left: 50px;
+  top: 16px;
+  left: 16px;
+  height: calc(100vh - 32px);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 20px;
-}
-
-.app-icon {
-  width: 100px;
-  height: 100px;
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* 每列宽度占据父元素的 50% */
+  grid-template-rows: repeat(auto-fill, minmax(80px, auto));
+  grid-gap: 16px; /* 减小列之间的间距 */
+  grid-auto-flow: column;
 }
 </style>
