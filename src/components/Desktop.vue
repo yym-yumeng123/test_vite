@@ -18,6 +18,7 @@ import desk from '@assets/images/desk.jpg'
   position: relative;
   width: 100vw;
   height: 100vh;
+  user-select: none;
 }
 
 .background-image {

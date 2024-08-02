@@ -1,13 +1,12 @@
 <template>
-  <div class="app-icon">
+  <div class="app-icon" @contextmenu="handleClickRight">
     <img :src="src" alt="前端项目图" class="app-icon-image" />
     <div class="app-icon-title">{{ title }}</div>
   </div>
 </template>
 
 <script setup>
-import { defineProps } from "vue";
-const props = defineProps({
+defineProps({
   src: {
     type: String,
   },
@@ -16,6 +15,12 @@ const props = defineProps({
     required: true,
   }
 });
+
+const handleClickRight = (e) => {
+  console.log(e, 'e')
+  e.preventDefault();
+}
+
 </script>
 
 <style lang="less" scoped>
@@ -26,6 +31,7 @@ const props = defineProps({
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  user-select: text;
   &:hover {
     background: rgba(0, 0, 0, 0.1);
   }
