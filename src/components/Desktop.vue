@@ -2,7 +2,7 @@
   <div class="desktop">
     <img :src="desk" class="background-image" alt="Desktop Background">
     <div class="app-icons">
-      <AppIcon v-for="item in AppIcons" :key="item.name" :src="item.src" :title="item.name" />
+      <AppIcon v-for="item in AppIcons" :key="item.id" :src="item.src" :title="item.name" :testUrl="item.testUrl" :mainUrl="item.mainUrl" />
     </div>
   </div>
 </template>

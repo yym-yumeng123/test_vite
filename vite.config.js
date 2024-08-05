@@ -4,6 +4,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './', // 默认为 /
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

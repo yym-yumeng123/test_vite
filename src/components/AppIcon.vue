@@ -6,19 +6,53 @@
 </template>
 
 <script setup>
-defineProps({
+import ContextMenu from '@imengyu/vue3-context-menu'
+import { toRaw } from 'vue'
+const props = defineProps({
   src: {
     type: String,
   },
   title: {
     type: String,
     required: true,
-  }
+  },
+  testUrl: {
+    type: String,
+    required: true,
+  },
+  mainUrl: {
+    type: String,
+    required: true,
+  },
 });
 
 const handleClickRight = (e) => {
-  console.log(e, 'e')
-  e.preventDefault();
+  //prevent the browser's default menu
+  e.preventDefault()
+  console.log(props.title, toRaw(props), 'props')
+  //show your menu
+  //这个函数与 this.$contextmenu 一致
+  ContextMenu.showContextMenu({
+    theme: 'mac',
+    x: e.x,
+    y: e.y - 10,
+    items: [
+      { 
+        label: "进入测试环境", 
+        onClick: () => {
+          // 打开新页面
+          window.open(props.testUrl)
+        }
+      },
+      { 
+        label: "进入正式环境",
+        onClick: () => {
+          // 打开新页面
+          window.open(props.mainUrl)
+        }
+      }
+    ]
+  }); 
 }
 
 </script>
