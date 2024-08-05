@@ -1,7 +1,7 @@
 <template>
-  <div class="app-icon" @contextmenu="handleClickRight">
-    <img :src="src" alt="前端项目图" class="app-icon-image" />
-    <div class="app-icon-title">{{ title }}</div>
+  <div class="app_icon" @contextmenu="handleClickRight">
+    <img :src="src" alt="前端项目图" class="app_icon_image" />
+    <div class="app_icon_title">{{ title }}</div>
   </div>
 </template>
 
@@ -18,11 +18,9 @@ const props = defineProps({
   },
   testUrl: {
     type: String,
-    required: true,
   },
   mainUrl: {
     type: String,
-    required: true,
   },
 });
 
@@ -58,29 +56,34 @@ const handleClickRight = (e) => {
 </script>
 
 <style lang="less" scoped>
-.app-icon {
-  width: 80px;
+.app_icon {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  margin-top: 16px;
+  margin-right: 16px;
+  padding: 8px 2px;
+  width: 80px;
   user-select: text;
+  cursor: pointer;
   &:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
   }
-  .app-icon-image {
-    width: 48px;
-    height: 100%;
-    padding: 4px 8px;
+  .app_icon_image {
+    width: 50px;
+    height: 50px;
   }
 
-  .app-icon-title {
-    margin-top: 5px;
-    padding: 0 4px 4px;
-    font-size: 12px;
+  .app_icon_title {
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    padding: 2px 8px;
     color: #fff;
-    text-align: center;
+    font-size: 12px;
+    background-color: #B2B2B2;
+    border-radius: 16px;
   }
 }
 </style>

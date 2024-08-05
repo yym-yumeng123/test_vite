@@ -11,5 +11,8 @@ export default defineConfig({
       '@assets': path.resolve(__dirname, './src/assets'),
     },
   },
+  build: {
+    outDir: 'docs',
+  },
   plugins: [vue()],
 })

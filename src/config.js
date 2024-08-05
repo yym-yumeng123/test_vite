@@ -5,14 +5,14 @@ export const AppIcons = [
   {
     id: 1,
     src: moxing1,
-    name: '模型运营门户',
+    name: '模型运营',
     testUrl: 'http://test.mops.woa.com',
     mainUrl: 'http://mops.woa.com'
   },
   {
     id: 2,
     src: hunyuan,
-    name: '混元运营门户',
+    name: '混元运营',
     testUrl: 'https://test.hyops.woa.com/',
     mainUrl: 'https://hyops.woa.com/'
   },
@@ -73,6 +73,21 @@ export const AppIcons = [
   // },
   // {
   //   id: 14,
+  //   src: hunyuan,
+  //   name: '混元运营门户'
+  // },
+  // {
+  //   id: 15,
+  //   src: moxing1,
+  //   name: '模型运营门户'
+  // },
+  // {
+  //   id: 16,
+  //   src: hunyuan,
+  //   name: '混元运营门户'
+  // },
+  // {
+  //   id: 17,
   //   src: hunyuan,
   //   name: '混元运营门户'
   // },
