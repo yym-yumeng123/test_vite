@@ -1,5 +1,4 @@
 <template>
-  <div class="app_main">
     <AppIcon
       v-for="item in AppIcons"
       :key="item.id"
@@ -8,7 +7,6 @@
       :testUrl="item.testUrl"
       :mainUrl="item.mainUrl"
     />
-  </div>
 </template>
 
 <script setup>
@@ -19,7 +17,6 @@ import { AppIcons } from "@/config.js";
 <style lang="less" scoped>
 .app_main {
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
 }
 </style>

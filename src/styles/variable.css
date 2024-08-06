@@ -1,0 +1,6 @@
+:root {
+  --system-color-light-hsl: 240, 24%, 100%;
+  --system-color-dark-hsl: 240, 3%, 11%;
+  --system-color-grey-100-hsl: 0, 0%, 96%;
+  --system-color-grey-900-hsl: 0, 0%, 13%;
+}
