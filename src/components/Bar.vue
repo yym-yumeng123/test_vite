@@ -19,22 +19,48 @@
         <div class="side_item_title">桌面布局</div>
       </div>
     </div>
+
+    <a-modal
+      :width="800"
+      :open="open"
+      :closable="false"
+      title="选择桌面布局"
+    >
+      <template #footer>
+        <a-button key="submit" type="primary" @click="handleOk">确认</a-button>
+      </template>
+      <a-row :gutter="16">
+        <a-col :span="12" v-for="item in allDirection" :key="item" class="modal_item">
+          <Layout :direction="item" />
+        </a-col>
+      </a-row>
+    </a-modal>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import dev from "@/assets/dev.svg?url";
 import person from "@/assets/person.svg";
 import app from "@/assets/app.svg";
 import layout from "@/assets/layout.svg";
+import Layout from "./Layout.vue";
+import { allDirection } from "@/config.js";
 defineProps({
   direction: { type: String, default: "bottomTopVertical" },
 });
 
 const handleOpenLayout = () => {
   console.log("handleOpenLayout");
+  open.value = true;
 };
 
+const open = ref(false);
+
+const handleOk = (e) => {
+  console.log(e);
+  open.value = false;
+};
 </script>
 
 <style lang="less" scoped>
@@ -63,7 +89,6 @@ const handleOpenLayout = () => {
       transition: transform 0.3s ease; /* 添加过渡效果 */
       &:hover {
         transform: scale(1.2);
-
       }
       .side_item_image {
         width: 36px;
@@ -77,5 +102,9 @@ const handleOpenLayout = () => {
       }
     }
   }
+}
+
+.modal_item {
+  margin-bottom: 16px;
 }
 </style>
