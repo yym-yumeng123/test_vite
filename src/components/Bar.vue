@@ -30,8 +30,17 @@
         <a-button key="submit" type="primary" @click="handleOk">确认</a-button>
       </template>
       <a-row :gutter="16">
-        <a-col :span="12" v-for="(item) in allDirection" :key="item" class="modal_item">
-          <Layout :direction="item" @selectLayout="handleActiveLayout" :active="activeLayout === item" />
+        <a-col
+          :span="12"
+          v-for="item in allDirection"
+          :key="item"
+          class="modal_item"
+        >
+          <Layout
+            :direction="item"
+            @selectLayout="handleActiveLayout"
+            :active="activeLayout === item"
+          />
         </a-col>
       </a-row>
     </a-modal>
@@ -51,7 +60,6 @@ const props = defineProps({
 });
 const emit = defineEmits(["selectLayout"]);
 
-
 const open = ref(false);
 const activeLayout = ref(props.direction);
 
@@ -60,13 +68,13 @@ const handleOpenLayout = () => {
 };
 
 const handleOk = () => {
-  emit("selectLayout", activeLayout.value)
+  emit("selectLayout", activeLayout.value);
   open.value = false;
 };
 
 const handleActiveLayout = (value) => {
   activeLayout.value = value;
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -92,7 +100,6 @@ const handleActiveLayout = (value) => {
       align-items: center;
       padding: 4px 8px;
       cursor: pointer;
-      transition: transform 0.3s ease; /* 添加过渡效果 */
       &:hover {
         transform: scale(1.2);
       }
@@ -105,6 +112,33 @@ const handleActiveLayout = (value) => {
         font-size: 12px;
         color: #fff;
         font-weight: 600;
+      }
+    }
+  }
+
+  &.leftRightVertical,
+  &.leftRightHorizontal,
+  &.rightLeftVertical,
+  &.rightLeftHorizontal {
+    display: block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    .side {
+      flex-direction: column;
+      &_item {
+        .side_item_image {
+          width: 36px;
+          height: 36px;
+        }
+        .side_item_title {
+          margin-top: 2px;
+          font-size: 12px;
+          color: #fff;
+          font-weight: 600;
+          min-width: 60px;
+          text-align: center;
+        }
       }
     }
   }

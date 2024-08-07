@@ -6,7 +6,7 @@
       </div>
       <transition-group name="main" tag="div" :class="['main', direction]">
         <div
-          @contextmenu="() => handleClickRight(item.testUrl, item.mainUrl)"
+          @contextmenu="handleClickRight"
           class="main-item"
           v-for="item in AppIcons"
           :key="item.id"
@@ -26,13 +26,13 @@ import Bar from "../components/Bar.vue";
 import { AppIcons } from "@/config.js";
 
 // 布局 bar_main_main方向
-const direction = ref("bottomTopVertical"); // bar 底部 main top 垂直
+const direction = ref("leftRightVertical"); // bar 底部 main top 垂直
 
 const handleARenderLayout = (val) => {
   direction.value = val;
 };
 
-const handleClickRight = (testUrl, mainUrl) => {
+const handleClickRight = (e) => {
   e.preventDefault();
   //show your menu
   //这个函数与 this.$contextmenu 一致
@@ -45,14 +45,14 @@ const handleClickRight = (testUrl, mainUrl) => {
         label: "进入测试环境",
         onClick: () => {
           // 打开新页面
-          window.open(testUrl);
+          window.open('221');
         },
       },
       {
         label: "进入正式环境",
         onClick: () => {
           // 打开新页面
-          window.open(mainUrl);
+          window.open('2121');
         },
       },
     ],
@@ -86,6 +86,16 @@ const handleClickRight = (testUrl, mainUrl) => {
     &.topBottomHorizontal {
       flex-direction: column;
     }
+
+    &.rightLeftVertical {
+      flex-direction: row-reverse;
+      justify-content: space-between;
+    }
+
+    &.rightLeftHorizontal {
+      flex-direction: row-reverse;
+    }
+
   }
 }
 
@@ -105,6 +115,22 @@ const handleClickRight = (testUrl, mainUrl) => {
   flex-direction: row;
   align-content: flex-start;
   height: calc(100% - 90px);
+}
+
+.main.leftRightVertical {
+  flex-direction: column;
+}
+
+.main.leftRightHorizontal {
+  align-content: flex-start;
+}
+
+.main.rightLeftVertical {
+  flex-direction: column;
+}
+
+.main.rightLeftHorizontal {
+  align-content: flex-start;
 }
 
 .main-item {
@@ -134,7 +160,7 @@ const handleClickRight = (testUrl, mainUrl) => {
     padding: 2px 8px;
     color: #fff;
     font-size: 12px;
-    background-color: #b2b2b2;
+    background-color: hsla(var(--system-color-dark-hsl), 0.7);
     border-radius: 16px;
   }
 }
