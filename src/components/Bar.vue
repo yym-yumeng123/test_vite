@@ -22,7 +22,7 @@
 
     <a-modal
       :width="800"
-      :open="open"
+      v-model:open="open"
       :closable="false"
       title="选择桌面布局"
     >
@@ -30,8 +30,8 @@
         <a-button key="submit" type="primary" @click="handleOk">确认</a-button>
       </template>
       <a-row :gutter="16">
-        <a-col :span="12" v-for="item in allDirection" :key="item" class="modal_item">
-          <Layout :direction="item" />
+        <a-col :span="12" v-for="(item) in allDirection" :key="item" class="modal_item">
+          <Layout :direction="item" @selectLayout="handleActiveLayout" :active="activeLayout === item" />
         </a-col>
       </a-row>
     </a-modal>
@@ -46,21 +46,27 @@ import app from "@/assets/app.svg";
 import layout from "@/assets/layout.svg";
 import Layout from "./Layout.vue";
 import { allDirection } from "@/config.js";
-defineProps({
+const props = defineProps({
   direction: { type: String, default: "bottomTopVertical" },
 });
+const emit = defineEmits(["selectLayout"]);
+
+
+const open = ref(false);
+const activeLayout = ref(props.direction);
 
 const handleOpenLayout = () => {
-  console.log("handleOpenLayout");
   open.value = true;
 };
 
-const open = ref(false);
-
-const handleOk = (e) => {
-  console.log(e);
+const handleOk = () => {
+  emit("selectLayout", activeLayout.value)
   open.value = false;
 };
+
+const handleActiveLayout = (value) => {
+  activeLayout.value = value;
+}
 </script>
 
 <style lang="less" scoped>

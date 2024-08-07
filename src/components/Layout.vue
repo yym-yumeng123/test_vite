@@ -1,5 +1,5 @@
 <template>
-  <div :class="['layout', direction]">
+  <div :class="{'layout': true, [direction]: true, 'active': active}" @click="handleSelectLayout">
     <div class="main">
       <i v-for="i in 3" :key="i" class="item" />
     </div>
@@ -10,9 +10,17 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   direction: { type: String, default: "bottomTopVertical" },
+  active: { type: Boolean, default: false },
 });
+
+const emit = defineEmits(["selectLayout"]);
+
+const handleSelectLayout = () => {
+  console.log(props.direction)
+  emit("selectLayout", props.direction)
+}
 </script>
 
 <style lang="less" scoped>
@@ -26,20 +34,18 @@ defineProps({
   &:hover {
     outline: 2px solid #1677ff;
   }
-  &.bottomTopVertical, &.topBottomVertical {
-    flex-direction: column;
-    .main {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      align-content: flex-start;
-      .item {
-        width: 20px;
-        height: 20px;
-        margin-bottom: 8px;
-        background: #1677ff;
-      }
+  .main {
+    display: flex;
+    .item {
+      width: 20px;
+      height: 20px;
+      background: #1677ff;
     }
+  }
+  &.bottomTopVertical,
+  &.topBottomVertical,
+  &.bottomTopHorizontal,
+  &.topBottomHorizontal {
     .footer {
       display: flex;
       justify-content: center;
@@ -48,37 +54,101 @@ defineProps({
         height: 20px;
         border-radius: 10px;
         background: rgba(62, 37, 30, 0.5);
+      }
+    }
+  }
+  &.bottomTopVertical,
+  &.topBottomVertical {
+    flex-direction: column;
+    .main {
+      flex-direction: column;
+      .item {
+        margin-bottom: 8px;
       }
     }
   }
   &.bottomTopHorizontal {
     flex-direction: column;
     .main {
-      display: flex;
-      flex-wrap: wrap;
-      align-content: flex-start;
       height: 84px;
       .item {
-        width: 20px;
-        height: 20px;
         margin-right: 8px;
-        background: #1677ff;
       }
     }
+  }
+  &.topBottomVertical {
+    flex-direction: column-reverse;
+  }
+  &.topBottomHorizontal {
+    flex-direction: column-reverse;
+    .main {
+      height: 84px;
+      .item {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  &.leftRightVertical,
+  &.leftRightHorizontal,
+  &.rightLeftVertical,
+  &.rightLeftHorizontal {
     .footer {
-      display: flex;
-      justify-content: center;
       .bar {
-        width: 100px;
-        height: 20px;
+        width: 20px;
+        height: 100px;
         border-radius: 10px;
         background: rgba(62, 37, 30, 0.5);
       }
     }
   }
 
-  &.topBottomVertical {
-    flex-direction: column-reverse;
+  &.leftRightVertical {
+    .footer {
+      order: -1;
+    }
+    .main {
+      flex-direction: column;
+      margin-left: 8px;
+      .item {
+        margin-bottom: 8px;
+      }
+    }
+
   }
+
+  &.leftRightHorizontal {
+    .main {
+      .item {
+        margin-left: 8px;
+      }
+    }
+    .footer {
+      order: -1;
+    }
+  }
+
+  &.rightLeftVertical {
+    justify-content: space-between;
+    .main {
+      flex-direction: column;
+      .item {
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  &.rightLeftHorizontal {
+    justify-content: space-between;
+    .main {
+      .item {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.active {
+  outline: 2px solid #1677ff;
 }
 </style>
