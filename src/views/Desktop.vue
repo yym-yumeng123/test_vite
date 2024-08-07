@@ -45,12 +45,15 @@ const handleARenderLayout = (val) => {
     display: flex;
     height: 100%;
     transition: all 0.3s ease-out;
-    .bar {
-      transition: all 0.3s ease-out;
-    }
     .main {
       display: flex;
       transition: all 0.3s ease-out;
+    }
+    &.bottomTopVertical,
+    &.topBottomVertical {
+      .bar {
+      animation: tra .5s ease-out;
+      }
     }
     &.bottomTopVertical {
       flex-direction: column-reverse;
@@ -70,6 +73,18 @@ const handleARenderLayout = (val) => {
         height: calc(100% - 90px);
       }
     }
+  }
+}
+
+@keyframes tra {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }
 </style>
