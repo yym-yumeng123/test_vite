@@ -4,33 +4,59 @@
       <div class="bar">
         <Bar :direction="direction" @selectLayout="handleARenderLayout" />
       </div>
-      <div class="main">
-        <AppIcon
+      <transition-group name="main" tag="div" :class="['main', direction]">
+        <div
+          @contextmenu="() => handleClickRight(item.testUrl, item.mainUrl)"
+          class="main-item"
           v-for="item in AppIcons"
           :key="item.id"
-          :src="item.src"
-          :title="item.name"
-          :testUrl="item.testUrl"
-          :mainUrl="item.mainUrl"
-        />
-      </div>
+        >
+          <img :src="item.src" alt="前端项目图" class="app_icon_image" />
+          <div class="app_icon_title">{{ item.name }}</div>
+        </div>
+      </transition-group>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import ContextMenu from "@imengyu/vue3-context-menu";
 import Bar from "../components/Bar.vue";
-import AppIcon from "../components/AppIcon.vue";
 import { AppIcons } from "@/config.js";
 
 // 布局 bar_main_main方向
 const direction = ref("bottomTopVertical"); // bar 底部 main top 垂直
-// const direction = ref('bottomTopHorizontal') // bar 底部 main top 水平
-// const direction = ref('topBottom')
 
 const handleARenderLayout = (val) => {
   direction.value = val;
+};
+
+const handleClickRight = (testUrl, mainUrl) => {
+  e.preventDefault();
+  //show your menu
+  //这个函数与 this.$contextmenu 一致
+  ContextMenu.showContextMenu({
+    theme: "mac",
+    x: e.x,
+    y: e.y - 10,
+    items: [
+      {
+        label: "进入测试环境",
+        onClick: () => {
+          // 打开新页面
+          window.open(testUrl);
+        },
+      },
+      {
+        label: "进入正式环境",
+        onClick: () => {
+          // 打开新页面
+          window.open(mainUrl);
+        },
+      },
+    ],
+  });
 };
 </script>
 
@@ -44,47 +70,72 @@ const handleARenderLayout = (val) => {
   .app_wrap {
     display: flex;
     height: 100%;
-    transition: all 0.3s ease-out;
     .main {
       display: flex;
-      transition: all 0.3s ease-out;
-    }
-    &.bottomTopVertical,
-    &.topBottomVertical {
-      .bar {
-      animation: tra .5s ease-out;
-      }
+      flex-wrap: wrap;
     }
     &.bottomTopVertical {
       flex-direction: column-reverse;
-      .main {
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        height: calc(100% - 90px);
-      }
     }
     &.bottomTopHorizontal {
       flex-direction: column-reverse;
-      .main {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        height: calc(100% - 90px);
-      }
+    }
+    &.topBottomVertical {
+      flex-direction: column;
+    }
+    &.topBottomHorizontal {
+      flex-direction: column;
     }
   }
 }
 
-@keyframes tra {
-  0% {
-    transform: translateY(0px);
+.main.bottomTopVertical {
+  flex-direction: column;
+  align-content: flex-start;
+  height: calc(100% - 90px);
+}
+
+.main.topBottomVertical {
+  flex-direction: column;
+  align-content: flex-start;
+  height: calc(100% - 90px);
+}
+
+.main.bottomTopHorizontal {
+  flex-direction: row;
+  align-content: flex-start;
+  height: calc(100% - 90px);
+}
+
+.main-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  margin-right: 16px;
+  padding: 8px 2px;
+  width: 80px;
+  user-select: text;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
   }
-  50% {
-    transform: translateY(-10px);
+  .app_icon_image {
+    width: 50px;
+    height: 50px;
   }
-  100% {
-    transform: translateY(0px);
+
+  .app_icon_title {
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    padding: 2px 8px;
+    color: #fff;
+    font-size: 12px;
+    background-color: #b2b2b2;
+    border-radius: 16px;
   }
 }
 </style>
