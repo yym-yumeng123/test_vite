@@ -7,6 +7,7 @@
       <transition-group name="main" tag="div" :class="['main', direction]">
         <div
           @contextmenu="handleClickRight"
+          @dblclick="handleDblClick"
           class="main-item"
           v-for="item in AppIcons"
           :key="item.id"
@@ -26,7 +27,7 @@ import Bar from "../components/Bar.vue";
 import { AppIcons } from "@/config.js";
 
 // 布局 bar_main_main方向
-const direction = ref("leftRightVertical"); // bar 底部 main top 垂直
+const direction = ref("bottomTopVertical"); // bar 底部 main top 垂直
 
 const handleARenderLayout = (val) => {
   direction.value = val;
@@ -42,21 +43,33 @@ const handleClickRight = (e) => {
     y: e.y - 10,
     items: [
       {
-        label: "进入测试环境",
+        label: "在新标签页中打开链接",
         onClick: () => {
           // 打开新页面
           window.open('221');
         },
       },
       {
-        label: "进入正式环境",
+        label: "复制链接地址",
         onClick: () => {
           // 打开新页面
           window.open('2121');
         },
       },
+      {
+        label: "删除该应用",
+        onClick: () => {
+          // 打开新页面
+          window.open('2121');
+        },
+      }
     ],
   });
+};
+
+const handleDblClick = (e) => {
+  e.preventDefault();
+  // TODO: 跳转新URL
 };
 </script>
 
@@ -65,7 +78,8 @@ const handleClickRight = (e) => {
   width: 100%;
   height: 100vh;
   user-select: none;
-  background: url("@assets/images/tree.jpg") 0px 0px / 100% 100% no-repeat;
+  // background: url("@assets/images/tree.jpg") 0px 0px / 100% 100% no-repeat;
+  background: url("@assets/images/plane.jpg") 0px 0px / 100% 100% no-repeat;
   background-size: cover;
   .app_wrap {
     display: flex;
@@ -94,6 +108,7 @@ const handleClickRight = (e) => {
 
     &.rightLeftHorizontal {
       flex-direction: row-reverse;
+      justify-content: space-between;
     }
 
   }
