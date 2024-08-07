@@ -1,5 +1,5 @@
 <template>
-  <div class="desktop" :style="{ backgroundImage: `url(${bgSrc})` }">
+  <div class="desktop" :style="{ background: `url(${bgSrc}) 0 0 / 100% 100% no-repeat` }">
     <div :class="['app_wrap', direction]">
       <div class="bar">
         <Bar
