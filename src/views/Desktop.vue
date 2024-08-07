@@ -1,8 +1,12 @@
 <template>
-  <div class="desktop">
+  <div class="desktop" :style="{ backgroundImage: `url(${bgSrc})` }">
     <div :class="['app_wrap', direction]">
       <div class="bar">
-        <Bar :direction="direction" @selectLayout="handleARenderLayout" />
+        <Bar
+          :direction="direction"
+          @selectLayout="handleARenderLayout"
+          @selectBg="handleSelectBg"
+        />
       </div>
       <transition-group name="main" tag="div" :class="['main', direction]">
         <div
@@ -26,11 +30,26 @@ import ContextMenu from "@imengyu/vue3-context-menu";
 import Bar from "../components/Bar.vue";
 import { AppIcons } from "@/config.js";
 
+import cloud from "@assets/images/cloud.png";
+import three from "@assets/images/three_twice.png";
+import flower from "@assets/images/flower.jpg";
+import plane from "@assets/images/plane.jpg";
+import tree from "@assets/images/tree.jpg";
+import waterdrop from "@assets/images/waterdrop.jpg";
+
+const allPhoto = ref([flower, cloud, three, plane, tree, waterdrop]);
+const bgSrc = ref(allPhoto.value[0]);
+
 // 布局 bar_main_main方向
 const direction = ref("bottomTopVertical"); // bar 底部 main top 垂直
 
 const handleARenderLayout = (val) => {
   direction.value = val;
+};
+
+const handleSelectBg = (index) => {
+  console.log("index", index);
+  bgSrc.value = allPhoto.value[index];
 };
 
 const handleClickRight = (e) => {
@@ -46,23 +65,23 @@ const handleClickRight = (e) => {
         label: "在新标签页中打开链接",
         onClick: () => {
           // 打开新页面
-          window.open('221');
+          window.open("221");
         },
       },
       {
         label: "复制链接地址",
         onClick: () => {
           // 打开新页面
-          window.open('2121');
+          window.open("2121");
         },
       },
       {
         label: "删除该应用",
         onClick: () => {
           // 打开新页面
-          window.open('2121');
+          window.open("2121");
         },
-      }
+      },
     ],
   });
 };
@@ -78,8 +97,6 @@ const handleDblClick = (e) => {
   width: 100%;
   height: 100vh;
   user-select: none;
-  // background: url("@assets/images/tree.jpg") 0px 0px / 100% 100% no-repeat;
-  background: url("@assets/images/plane.jpg") 0px 0px / 100% 100% no-repeat;
   background-size: cover;
   .app_wrap {
     display: flex;
@@ -110,7 +127,6 @@ const handleDblClick = (e) => {
       flex-direction: row-reverse;
       justify-content: space-between;
     }
-
   }
 }
 

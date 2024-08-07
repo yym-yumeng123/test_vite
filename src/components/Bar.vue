@@ -18,8 +18,13 @@
         <img class="side_item_image" :src="layout" alt="" />
         <div class="side_item_title">桌面布局</div>
       </div>
+      <div class="side_item" @click="handleOpenBg">
+        <img class="side_item_image" :src="bg" alt="" />
+        <div class="side_item_title">背景设置</div>
+      </div>
     </div>
 
+    <!-- 桌面布局 -->
     <a-modal
       :width="800"
       v-model:open="open"
@@ -44,6 +49,18 @@
         </a-col>
       </a-row>
     </a-modal>
+
+    <!-- 背景设置 -->
+    <a-drawer
+      v-model:open="bgOpen"
+      title="设置背景图片"
+      placement="right"
+      :closable="false"
+    >
+      <div class="img_wrap">
+        <img v-for=" (item, index) of allPhoto" :key="index" class="img" :src="item" @click="handleSelectBg(index)">
+      </div>
+    </a-drawer>
   </div>
 </template>
 
@@ -53,18 +70,36 @@ import dev from "@/assets/dev.svg?url";
 import person from "@/assets/person.svg";
 import app from "@/assets/app.svg";
 import layout from "@/assets/layout.svg";
+import bg from "@/assets/bg.svg";
 import Layout from "./Layout.vue";
 import { allDirection } from "@/config.js";
+
+import cloud from "@assets/images/cloud.png"
+import three from "@assets/images/three_twice.png"
+import flower from "@assets/images/flower.jpg"
+import plane from "@assets/images/plane.jpg"
+import tree from "@assets/images/tree.jpg"
+import waterdrop from "@assets/images/waterdrop.jpg"
+
+
+const allPhoto = ref([flower, cloud, three, plane, tree, waterdrop])
 const props = defineProps({
   direction: { type: String, default: "bottomTopVertical" },
 });
-const emit = defineEmits(["selectLayout"]);
+const emit = defineEmits(["selectLayout", "selectBg"]);
 
 const open = ref(false);
 const activeLayout = ref(props.direction);
 
+const bgOpen = ref(false);
+
 const handleOpenLayout = () => {
+  activeLayout.value = props.direction;
   open.value = true;
+};
+
+const handleOpenBg = () => {
+  bgOpen.value = true;
 };
 
 const handleOk = () => {
@@ -74,6 +109,11 @@ const handleOk = () => {
 
 const handleActiveLayout = (value) => {
   activeLayout.value = value;
+};
+
+const handleSelectBg = (index) => {
+  emit("selectBg", index)
+  bgOpen.value = false;
 };
 </script>
 
@@ -100,8 +140,9 @@ const handleActiveLayout = (value) => {
       align-items: center;
       padding: 4px 8px;
       cursor: pointer;
+      transition: all .5s;
       &:hover {
-        transform: scale(1.2);
+        transform: scale(1.3);
       }
       .side_item_image {
         width: 36px;
@@ -146,5 +187,19 @@ const handleActiveLayout = (value) => {
 
 .modal_item {
   margin-bottom: 16px;
+}
+
+.img_wrap {
+  width: 100%;
+  .img {
+    width: 100%;
+    height: 140px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: all .5s;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
 </style>
