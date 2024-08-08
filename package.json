@@ -11,6 +11,8 @@
   "dependencies": {
     "@imengyu/vue3-context-menu": "^1.4.2",
     "ant-design-vue": "^4.2.3",
+    "axios": "^1.7.3",
+    "nprogress": "^0.2.0",
     "vue": "^3.4.31"
   },
   "devDependencies": {

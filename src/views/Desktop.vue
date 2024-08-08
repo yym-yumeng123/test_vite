@@ -32,11 +32,13 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import ContextMenu from "@imengyu/vue3-context-menu";
 import Bar from "../components/Bar.vue";
 import { AppIcons } from "@/config.js";
 import { PlusSquareOutlined } from "@ant-design/icons-vue";
+
+import { getAllApps, getUserApps } from '@http/api.js'
 
 import cloud from "@assets/images/cloud.png";
 import three from "@assets/images/three_twice.png";
@@ -50,6 +52,15 @@ const bgSrc = ref(allPhoto.value[0]);
 
 // 布局 bar_main_main方向
 const direction = ref("bottomTopVertical"); // bar 底部 main top 垂直
+
+onMounted(() => {
+  getAllApps().then(res => {
+    console.log('res', res)
+  })
+  getUserApps().then(res => {
+    console.log('res', res)
+  })
+});
 
 const handleARenderLayout = (val) => {
   direction.value = val;
@@ -183,7 +194,7 @@ const handleDblClick = (e) => {
   width: 80px;
   user-select: text;
   cursor: pointer;
-  transition: all 0.3s ease-out;
+  transition: all 0.5s ease-in-out;
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
