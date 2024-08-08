@@ -1,5 +1,8 @@
 <template>
-  <div class="desktop" :style="{ background: `url(${bgSrc}) 0 0 / 100% 100% no-repeat` }">
+  <div
+    class="desktop"
+    :style="{ background: `url(${bgSrc}) 0 0 / 100% 100% no-repeat` }"
+  >
     <div :class="['app_wrap', direction]">
       <div class="bar">
         <Bar
@@ -19,6 +22,10 @@
           <img :src="item.src" alt="前端项目图" class="app_icon_image" />
           <div class="app_icon_title">{{ item.name }}</div>
         </div>
+        <div class="main-item">
+          <PlusSquareOutlined class="app_icon_plus" />
+          <div class="app_icon_title">添加</div>
+        </div>
       </transition-group>
     </div>
   </div>
@@ -29,6 +36,7 @@ import { ref } from "vue";
 import ContextMenu from "@imengyu/vue3-context-menu";
 import Bar from "../components/Bar.vue";
 import { AppIcons } from "@/config.js";
+import { PlusSquareOutlined } from "@ant-design/icons-vue";
 
 import cloud from "@assets/images/cloud.png";
 import three from "@assets/images/three_twice.png";
@@ -194,5 +202,9 @@ const handleDblClick = (e) => {
     background-color: hsla(var(--system-color-dark-hsl), 0.7);
     border-radius: 16px;
   }
+}
+
+.app_icon_plus {
+  font-size: 50px;
 }
 </style>
